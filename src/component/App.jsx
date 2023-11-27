@@ -13,6 +13,7 @@ function App() {
           <Route path="/" exact Component={ListTodos} />
           <Route path="/todos" exact Component={ListTodos} />
           <Route path="/add-todo" exact Component={AddTodo} />
+          <Route path="/update-todo/:id" exact Component={AddTodo} />
         </Routes>
         <Footer />
       </BrowserRouter>
