@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getTodos } from '../service/todoService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -10,10 +10,14 @@ const ListTodos = () => {
     navigate('/add-todo');
   };
 
+  const updateTodo = (id) => {
+    navigate(`/update-todo/${id}`);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:8080/api/todos');
+        const result = await getTodos();
         setTodos(result.data);
       } catch (error) {
         console.log(error.message);
@@ -35,6 +39,7 @@ const ListTodos = () => {
               <th>Title</th>
               <th>Description</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -43,6 +48,14 @@ const ListTodos = () => {
                 <td>{todo.title}</td>
                 <td>{todo.description}</td>
                 <td>{todo.completed ? 'Completed' : 'Not Completed'}</td>
+                <td>
+                  <button
+                    className="btn btn-info text-center"
+                    onClick={() => updateTodo(todo.id)}
+                  >
+                    Update
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
