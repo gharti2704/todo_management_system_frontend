@@ -1,10 +1,9 @@
+import './Footer.css';
+
 const Footer = () => {
   return (
-    <footer
-      style={{ backgroundColor: 'gray', padding: '10px', textAlign: 'center' }}
-    >
-      <p style={{ color: 'white' }}>This is the footer.</p>
-      <p style={{ color: 'white', fontSize: '12px' }}>
+    <footer className="footer">
+      <p className="text-center mt-2">
         © {new Date().getFullYear()} Todo Management System. All rights
         reserved.
       </p>
