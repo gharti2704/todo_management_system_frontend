@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTodos } from '../service/todoService';
+import { getTodos, deleteTodo } from '../service/todoService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -12,6 +12,17 @@ const ListTodos = () => {
 
   const updateTodo = (id) => {
     navigate(`/update-todo/${id}`);
+  };
+
+  const deleteTodoById = async (id) => {
+    await deleteTodo(id)
+      .then(() => {
+        const newTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(newTodos);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   useEffect(() => {
@@ -54,6 +65,12 @@ const ListTodos = () => {
                     onClick={() => updateTodo(todo.id)}
                   >
                     Update
+                  </button>
+                  <button
+                    className="btn btn-danger text-center ms-1"
+                    onClick={() => deleteTodoById(todo.id)}
+                  >
+                    delete
                   </button>
                 </td>
               </tr>
