@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTodos, deleteTodo, completeTodo } from '../service/todoService';
+import {
+  getTodos,
+  deleteTodo,
+  completeTodo,
+  uncompleteTodo,
+} from '../service/todoService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -25,9 +30,19 @@ const ListTodos = () => {
       });
   };
 
-  const markTodo = async (id) => {
+  const markTodoAsComplete = async (id) => {
     try {
       await completeTodo(id);
+      const newTodos = await getTodos();
+      setTodos(newTodos.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const markTodoAsUncomplete = async (id) => {
+    try {
+      await uncompleteTodo(id);
       const newTodos = await getTodos();
       setTodos(newTodos.data);
     } catch (error) {
@@ -56,7 +71,7 @@ const ListTodos = () => {
       <div>
         <table className="table table-bordered table-striped">
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Title</th>
               <th>Description</th>
               <th>Status</th>
@@ -69,7 +84,7 @@ const ListTodos = () => {
                 <td>{todo.title}</td>
                 <td>{todo.description}</td>
                 <td>{todo.completed ? 'Completed' : 'Not Completed'}</td>
-                <td>
+                <td className="d-flex justify-content-center">
                   <button
                     className="btn btn-info text-center"
                     onClick={() => updateTodo(todo.id)}
@@ -84,9 +99,15 @@ const ListTodos = () => {
                   </button>
                   <button
                     className="btn btn-success text-center ms-1"
-                    onClick={() => markTodo(todo.id)}
+                    onClick={() => markTodoAsComplete(todo.id)}
                   >
                     complete
+                  </button>
+                  <button
+                    className="btn btn-info text-center ms-1"
+                    onClick={() => markTodoAsUncomplete(todo.id)}
+                  >
+                    uncomplete
                   </button>
                 </td>
               </tr>
