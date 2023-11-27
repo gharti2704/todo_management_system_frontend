@@ -21,3 +21,11 @@ export const deleteTodo = (id) => {
 export const getTodoById = (id) => {
   return axios.get(`${BASED_API_URL}/${id}`);
 };
+
+export const completeTodo = (id) => {
+  return axios.put(`${BASED_API_URL}/complete/${id}`);
+};
+
+export const uncompleteTodo = (id) => {
+  return axios.put(`${BASED_API_URL}/uncomplete/${id}`);
+};

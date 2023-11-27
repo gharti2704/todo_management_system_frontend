@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTodos, deleteTodo } from '../service/todoService';
+import { getTodos, deleteTodo, completeTodo } from '../service/todoService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -23,6 +23,16 @@ const ListTodos = () => {
       .catch((error) => {
         console.log(error.message);
       });
+  };
+
+  const markTodo = async (id) => {
+    try {
+      await completeTodo(id);
+      const newTodos = await getTodos();
+      setTodos(newTodos.data);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -71,6 +81,12 @@ const ListTodos = () => {
                     onClick={() => deleteTodoById(todo.id)}
                   >
                     delete
+                  </button>
+                  <button
+                    className="btn btn-success text-center ms-1"
+                    onClick={() => markTodo(todo.id)}
+                  >
+                    complete
                   </button>
                 </td>
               </tr>
