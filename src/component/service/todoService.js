@@ -1,13 +1,26 @@
 import axios from 'axios';
+import { getToken } from './authService';
 
 const BASED_API_URL = 'http://localhost:8080/api/todos';
+
+// Add a request interceptor to add the token to the request header
+axios.interceptors.request.use(
+  function (config) {
+    config.headers.Authorization = getToken();
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 export const getTodos = () => {
   return axios.get(BASED_API_URL);
 };
 
 export const createTodo = (todo) => {
-  return axios.post(BASED_API_URL, todo);
+  return axios.post(`${BASED_API_URL}/create`, todo);
 };
 
 export const updateTodo = (id, todo) => {
