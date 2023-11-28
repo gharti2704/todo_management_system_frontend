@@ -1,10 +1,10 @@
-import { NavLink } from 'react-router-dom';
-import { isUserLoggedIn } from '../service/authService';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { isUserLoggedIn, logout } from '../service/authService';
 
 const Header = () => {
   const isAuthenticated = isUserLoggedIn();
+  const navigator = useNavigate();
 
-  console.log('isAuthenticated', isAuthenticated);
   return (
     <div>
       <header>
@@ -45,7 +45,14 @@ const Header = () => {
 
             {isAuthenticated && (
               <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
+                <NavLink
+                  to="/login"
+                  className="nav-link"
+                  onClick={() => {
+                    logout();
+                    navigator('/login');
+                  }}
+                >
                   Logout
                 </NavLink>
               </li>

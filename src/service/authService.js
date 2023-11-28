@@ -7,8 +7,6 @@ export const registerUser = (user) =>
 
 export const login = (user) => axios.post(`${BASED_API_URL}/login`, user);
 
-export const logout = () => axios.get(`${BASED_API_URL}/logout`);
-
 export const setToken = (token) => localStorage.setItem('token', token);
 
 export const getToken = () => localStorage.getItem('token');
@@ -21,3 +19,9 @@ export const isUserLoggedIn = () =>
 
 export const getLoggedInUser = () =>
   sessionStorage.getItem('authenticatedUser');
+
+export const logout = () => {
+  // axios.get(`${BASED_API_URL}/logout`);
+  sessionStorage.clear();
+  localStorage.clear();
+};
