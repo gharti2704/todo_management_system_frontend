@@ -1,19 +1,24 @@
 import { useState } from 'react';
-import { login } from '../service/authService';
+import { login, setToken } from '../service/authService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigator = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const user = { usernameOrEmail, password };
-      const response = await login(user);
-      alert(response.data);
+      await login(user);
+      const token = `Basic ${window.btoa(usernameOrEmail + ':' + password)}`;
+      setToken(token);
+      navigator('/todos');
     } catch (error) {
-      alert(error.response.data?.message);
       console.log(error);
+      alert(error.response?.data?.message);
     }
   };
 
