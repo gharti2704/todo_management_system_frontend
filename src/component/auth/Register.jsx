@@ -11,9 +11,11 @@ const Register = () => {
     e.preventDefault();
     try {
       const user = { name, username, email, password };
-      await registerUser(user);
+      const response = await registerUser(user);
+      alert(response.data);
     } catch (error) {
-      console.log(error.message);
+      alert(error.response.data?.message);
+      console.log(error);
     }
   };
 
@@ -34,8 +36,8 @@ const Register = () => {
                   <div className="col-md-9">
                     <input
                       type="text"
+                      name="name"
                       className="form-control"
-                      id="name"
                       placeholder="Enter name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -47,8 +49,8 @@ const Register = () => {
                   <div className="col-md-9">
                     <input
                       type="text"
+                      name="username"
                       className="form-control"
-                      id="name"
                       placeholder="Enter username"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
@@ -60,8 +62,8 @@ const Register = () => {
                   <div className="col-md-9">
                     <input
                       type="text"
+                      name="email"
                       className="form-control"
-                      id="name"
                       placeholder="Enter email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -72,9 +74,9 @@ const Register = () => {
                   <label className="col-md-3 control-label">Password</label>
                   <div className="col-md-9">
                     <input
-                      type="text"
+                      type="password"
+                      name="password"
                       className="form-control"
-                      id="name"
                       placeholder="Enter password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
