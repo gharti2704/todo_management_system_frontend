@@ -12,3 +12,12 @@ export const logout = () => axios.get(`${BASED_API_URL}/logout`);
 export const setToken = (token) => localStorage.setItem('token', token);
 
 export const getToken = () => localStorage.getItem('token');
+
+export const saveLoggedInUser = (username) =>
+  sessionStorage.setItem('authenticatedUser', JSON.stringify(username));
+
+export const isUserLoggedIn = () =>
+  sessionStorage.getItem('authenticatedUser') ? true : false;
+
+export const getLoggedInUser = () =>
+  sessionStorage.getItem('authenticatedUser');

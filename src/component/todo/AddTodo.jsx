@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './AddTodo.css';
-import { createTodo, getTodoById, updateTodo } from '../service/todoService';
+import { createTodo, getTodoById, updateTodo } from '../../service/todoService';
 
 const AddTodo = () => {
   const [title, setTitle] = useState('');
