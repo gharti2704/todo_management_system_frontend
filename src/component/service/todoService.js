@@ -23,9 +23,9 @@ export const getTodoById = (id) => {
 };
 
 export const completeTodo = (id) => {
-  return axios.put(`${BASED_API_URL}/complete/${id}`);
+  return axios.patch(`${BASED_API_URL}/complete/${id}`);
 };
 
 export const uncompleteTodo = (id) => {
-  return axios.put(`${BASED_API_URL}/uncomplete/${id}`);
+  return axios.patch(`${BASED_API_URL}/uncomplete/${id}`);
 };
