@@ -4,6 +4,7 @@ import Header from './Header';
 import ListTodos from './todo/ListTodos';
 import AddTodo from './todo/AddTodo';
 import Register from './auth/Register';
+import Login from './auth/Login';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/add-todo" exact Component={AddTodo} />
           <Route path="/update-todo/:id" exact Component={AddTodo} />
           <Route path="/register" exact Component={Register} />
+          <Route path="/login" exact Component={Login} />
         </Routes>
         <Footer />
       </BrowserRouter>
