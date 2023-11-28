@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { login, setToken } from '../service/authService';
+import { login, saveLoggedInUser, setToken } from '../../service/authService';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -14,8 +14,10 @@ const Login = () => {
       const user = { usernameOrEmail, password };
       await login(user);
       const token = `Basic ${window.btoa(usernameOrEmail + ':' + password)}`;
+      saveLoggedInUser(usernameOrEmail);
       setToken(token);
       navigator('/todos');
+      window.location.reload(false);
     } catch (error) {
       console.log(error);
       alert(error.response?.data?.message);

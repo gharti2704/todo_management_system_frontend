@@ -5,7 +5,7 @@ import {
   deleteTodo,
   completeTodo,
   uncompleteTodo,
-} from '../service/todoService';
+} from '../../service/todoService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);

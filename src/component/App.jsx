@@ -5,6 +5,7 @@ import ListTodos from './todo/ListTodos';
 import AddTodo from './todo/AddTodo';
 import Register from './auth/Register';
 import Login from './auth/Login';
+import { isUserLoggedIn } from '../service/authService';
 
 function App() {
   return (
@@ -12,7 +13,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" exact Component={ListTodos} />
+          {isUserLoggedIn() ? (
+            <Route path="/" exact Component={ListTodos} />
+          ) : (
+            <Route path="/" exact Component={Login} />
+          )}
           <Route path="/todos" exact Component={ListTodos} />
           <Route path="/add-todo" exact Component={AddTodo} />
           <Route path="/update-todo/:id" exact Component={AddTodo} />
