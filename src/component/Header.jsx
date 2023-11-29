@@ -1,9 +1,11 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { isUserLoggedIn, logout } from '../service/authService';
+import { getName, isUserLoggedIn, logout } from '../service/authService';
 
 const Header = () => {
   const isAuthenticated = isUserLoggedIn();
   const navigator = useNavigate();
+
+  const name = getName()?.split(' ')[0];
 
   return (
     <div>
@@ -44,18 +46,23 @@ const Header = () => {
             )}
 
             {isAuthenticated && (
-              <li className="nav-item">
-                <NavLink
-                  to="/login"
-                  className="nav-link"
-                  onClick={() => {
-                    logout();
-                    navigator('/login');
-                  }}
-                >
-                  Logout
-                </NavLink>
-              </li>
+              <>
+                <li className="nav-item text-white">
+                  {name.slice(0, 1).toUpperCase().concat(name.slice(1))}
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/login"
+                    className="nav-link"
+                    onClick={() => {
+                      logout();
+                      navigator('/login');
+                    }}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              </>
             )}
           </ul>
         </nav>

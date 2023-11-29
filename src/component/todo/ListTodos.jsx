@@ -6,6 +6,7 @@ import {
   completeTodo,
   uncompleteTodo,
 } from '../../service/todoService';
+import { isAdminUser } from '../../service/authService';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -65,9 +66,11 @@ const ListTodos = () => {
   return (
     <div className="container">
       <h2 className="text-center">Todos:</h2>
-      <button className="btn btn-primary mb-2" onClick={addTodo}>
-        Add a todo
-      </button>
+      {isAdminUser() && (
+        <button className="btn btn-primary mb-2" onClick={addTodo}>
+          Add a todo
+        </button>
+      )}
       <div>
         <table className="table table-bordered table-striped">
           <thead>
@@ -85,18 +88,22 @@ const ListTodos = () => {
                 <td>{todo.description}</td>
                 <td>{todo.completed ? 'Completed' : 'Not Completed'}</td>
                 <td className="d-flex justify-content-center">
-                  <button
-                    className="btn btn-info text-center"
-                    onClick={() => updateTodo(todo.id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-danger text-center ms-1"
-                    onClick={() => deleteTodoById(todo.id)}
-                  >
-                    delete
-                  </button>
+                  {isAdminUser() && (
+                    <>
+                      <button
+                        className="btn btn-info text-center"
+                        onClick={() => updateTodo(todo.id)}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="btn btn-danger text-center ms-1"
+                        onClick={() => deleteTodoById(todo.id)}
+                      >
+                        delete
+                      </button>
+                    </>
+                  )}
                   <button
                     className="btn btn-success text-center ms-1"
                     onClick={() => markTodoAsComplete(todo.id)}
