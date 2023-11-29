@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { registerUser } from '../../service/authService';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -10,9 +11,12 @@ const Register = () => {
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const navigator = useNavigate();
 
   const isValidEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
@@ -58,9 +62,17 @@ const Register = () => {
 
     if (isValid) {
       try {
-        const user = { name, username, email, password };
+        const user = {
+          name,
+          username,
+          email,
+          password,
+          role: isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER',
+        };
+
         const response = await registerUser(user);
         alert(response.data);
+        navigator('/login');
       } catch (error) {
         error.response.data?.message?.includes('email')
           ? setEmailError(error.response.data?.message)
@@ -155,11 +167,38 @@ const Register = () => {
                     )}
                   </div>
                 </div>
+                <div className="row mb-3">
+                  <label className="col-md-3 control-label">Admin</label>
+                  <div className="col-md-9">
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        name="isAdmin"
+                        checked={isAdmin}
+                        onChange={(e) => setIsAdmin(e.target.checked)}
+                      />
+                      <label className="form-check-label">
+                        Are you an admin user?
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <div className="row">
                   <div className="col-md-9 offset-md-3">
                     <button type="submit" className="btn btn-primary">
                       Register
                     </button>
+                    <span className="ms-1 text-muted">
+                      <i>
+                        <small>Already registered?</small>
+                      </i>
+                      <NavLink to="/login">
+                        <i>
+                          <small className="text-muted ms-1">Login here</small>
+                        </i>
+                      </NavLink>
+                    </span>
                   </div>
                 </div>
               </form>

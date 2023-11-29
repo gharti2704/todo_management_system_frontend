@@ -6,6 +6,7 @@ import AddTodo from './todo/AddTodo';
 import Register from './auth/Register';
 import Login from './auth/Login';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import { isUserLoggedIn } from '../service/authService';
 
 function App() {
   return (
@@ -13,7 +14,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" exact Component={Login} />
+          <Route
+            path="/"
+            exact
+            Component={isUserLoggedIn() ? ListTodos : Login}
+          />
           <Route path="/register" exact Component={Register} />
           <Route path="/login" exact Component={Login} />
 

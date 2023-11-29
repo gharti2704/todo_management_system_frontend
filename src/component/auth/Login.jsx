@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { login, saveLoggedInUser, setToken } from '../../service/authService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -64,8 +64,18 @@ const Login = () => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-primary">
-                  Login
+                  Sign in
                 </button>
+                <span className="ms-1 text-muted">
+                  <i>
+                    <small>Not registered?</small>
+                  </i>
+                  <NavLink to="/register">
+                    <i>
+                      <small className="text-muted ms-1">Register here</small>
+                    </i>
+                  </NavLink>
+                </span>
               </form>
             </div>
           </div>
