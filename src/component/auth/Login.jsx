@@ -12,9 +12,10 @@ const Login = () => {
     e.preventDefault();
     try {
       const user = { usernameOrEmail, password };
-      await login(user);
-      const token = `Basic ${window.btoa(usernameOrEmail + ':' + password)}`;
-      saveLoggedInUser(usernameOrEmail);
+      const response = await login(user);
+      const token = `Bearer ${response.data.jwtToken}`;
+      const { role, name } = response.data;
+      saveLoggedInUser(usernameOrEmail, role, name);
       setToken(token);
       navigator('/todos');
       window.location.reload(false);

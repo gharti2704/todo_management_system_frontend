@@ -30,7 +30,7 @@ const AddTodo = () => {
     setTitle('');
     setDescription('');
     setCompleted(false);
-    navigate('/');
+    navigate('/todos');
   };
 
   useEffect(() => {

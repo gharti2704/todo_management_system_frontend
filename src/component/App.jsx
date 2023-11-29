@@ -1,21 +1,13 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import ListTodos from './todo/ListTodos';
 import AddTodo from './todo/AddTodo';
 import Register from './auth/Register';
 import Login from './auth/Login';
-import { isUserLoggedIn } from '../service/authService';
-import PropTypes from 'prop-types';
+import AuthenticatedRoute from './AuthenticatedRoute';
 
 function App() {
-  const AuthenticatedRoute = ({ children }) =>
-    isUserLoggedIn() ? children : <Navigate to="/" />;
-
-  AuthenticatedRoute.propTypes = {
-    children: PropTypes.element.isRequired,
-  };
-
   return (
     <>
       <BrowserRouter>
