@@ -77,16 +77,18 @@ const ListTodos = () => {
             <tr className="text-center">
               <th>Title</th>
               <th>Description</th>
+              <th>Assignee</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {todos.map((todo) => (
-              <tr key={todo.id}>
-                <td>{todo.title}</td>
-                <td>{todo.description}</td>
-                <td>{todo.completed ? 'Completed' : 'Not Completed'}</td>
+              <tr key={todo?.id}>
+                <td>{todo?.title}</td>
+                <td>{todo?.description}</td>
+                <td>{todo?.userName}</td>
+                <td>{todo?.completed ? 'Completed' : 'Not Completed'}</td>
                 <td className="d-flex justify-content-center">
                   {isAdminUser() && (
                     <>
